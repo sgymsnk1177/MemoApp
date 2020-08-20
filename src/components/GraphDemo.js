@@ -11,6 +11,8 @@ import { LineChart,
 // import BodyText from './elements/BodyText.js';
 
 class GraphDemo extends React.Component {
+
+  days = []
   
   constructor(props){
     super(props)
@@ -39,22 +41,21 @@ class GraphDemo extends React.Component {
                   .map((v)=>{return v.month})
                   .value()
   }
- 
+
   render(){
     return(
       <SafeAreaView style={styles.container}>
       {/* <BodyText>ExpoApp</BodyText> */}
-      <Text>ReactNativeChart(react-native-chart-kit)</Text>
-        <Button title="ホームボタン" 
-                onPress={ () => {
-                    // console.log("list",this.monthList);
-                    this.setState({ReloadGraph: !this.state.ReloadGraph});
-                  }
+      <Text style={{textAlign:'center'}}>ReactNativeChart(react-native-chart-kit)</Text>
+      <Button title="グラフ更新" 
+              onPress={ () => {
+                  // console.log("list",this.monthList);
+                  this.setState({ReloadGraph: !this.state.ReloadGraph});
                 }
-        />
+              }
+      />
       <ScrollView>
         <View>
-          <Text>Chart</Text>
           <BarChart
             data={{
               labels: this.monthList,

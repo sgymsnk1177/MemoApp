@@ -2,24 +2,34 @@ import { StatusBar } from 'expo-status-bar';
 import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 import * as SQLite from 'expo-sqlite';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert, ScrollView, ListView, ActivityIndicatorComponent, SafeAreaView } from 'react-native';
 
+import MemoListScreen from './src/screens/MemoListScreen';
+import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import Appbar from './src/components/Appbar';
 import GraphDemo from './src/components/GraphDemo';
-import MemoList from './src/components/MemoList';
-import CircleButton from './src/elements/CircleButton';
+import { now } from 'lodash';
 
 export default function App(props) {
 
   const [isLoadingComplete, setLoadingComplete] = useState(false)
   const [isGraphView, setGraphView] = useState(false)
+
   const DB = SQLite.openDatabase('db')
 
+  // useEffect(() => {
+  //    let interval = setInterval(() => {
+  //      console.log(getCurrentTime;
+  //      setNowDate(new Date())
+  //    }, 1000); 
+  //   }
+  // );
+  
   /**
    * ローカルデータベース（sqlite）を作成
    */
-  async function loadResourcesAsync() {
+  loadResourcesAsync = async () => {
     await Promise.all([
       (() => {
         DB.transaction(tx => {
@@ -34,12 +44,18 @@ export default function App(props) {
     ]);
   }
 
+  getCurrentTime = () => {
+    let res = "" + nowDate.getFullYear() + '/' + nowDate.getMonth() + '/' + nowDate.getDate() + ' '
+                 + nowDate.getHours() + ':' + nowDate.getMinutes() + ':' + nowDate.getSeconds();
+    return res;
+  }
+
   if (!isLoadingComplete && !props.setLoadingComplete) {
     return (
       <AppLoading 
         startAsync={loadResourcesAsync}
         onError={(err) => Alert.alert(err)}
-        onFinish={() => { setLoadingComplete(true); }}
+        onFinish={() => { setLoadingComplete(true);}}
       />
     );
   } else {
@@ -48,21 +64,21 @@ export default function App(props) {
       return (      
         <View style={styles.container}>
           <Appbar>MemoApp(デモ用)</Appbar>
+          <View style={{paddingTop:50,}}>
+            <Button 
+                  title={"切り替え"}
+                  onPress={() => {setGraphView(!isGraphView);}}    
+            />
+            <Text>{nowDate.toString()}</Text>
+          </View>
           <GraphDemo/>
-          <Button title={"切り替え"}
-                  onPress={() => {setGraphView(!isGraphView);}}        
-          />
         </View>
       );
     }
-    return (      
+    return (
       <View style={styles.container}>
         <Appbar>MemoApp(デモ用)</Appbar>
-        <MemoList/>
-        <Button title={"切り替え"}
-                onPress={() => {setGraphView(!isGraphView);}}        
-        />
-        <CircleButton>+</CircleButton>
+        <MemoDetailScreen/>
       </View>
       
     );
@@ -74,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     paddingTop: 78,
   },
 });
