@@ -5,13 +5,14 @@ import * as SQLite from 'expo-sqlite';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button, Alert, ScrollView, ListView, ActivityIndicatorComponent, SafeAreaView } from 'react-native';
 
-import MemoListScreen from './src/screens/MemoListScreen';
-import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import Appbar from './src/components/Appbar';
 import GraphDemo from './src/components/GraphDemo';
-import { now } from 'lodash';
+import MemoListScreen from './src/screens/MemoListScreen';
+import MemoDetailScreen from './src/screens/MemoDetailScreen';
+import TestScreen from './src/screens/TestScreen';
 
-export default function App(props) {
+
+function App(props) {
 
   const [isLoadingComplete, setLoadingComplete] = useState(false)
   const [isGraphView, setGraphView] = useState(false)
@@ -80,6 +81,8 @@ export default function App(props) {
         <Appbar>MemoApp(デモ用)</Appbar>
         <MemoDetailScreen/>
       </View>
+      // <TestScreen/>
+      
       
     );
   }
@@ -94,3 +97,5 @@ const styles = StyleSheet.create({
     paddingTop: 78,
   },
 });
+
+export default App;

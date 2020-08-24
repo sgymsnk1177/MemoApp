@@ -1,12 +1,13 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import { loadAsync } from 'expo-font';
-import { createIconSet } from '@expo/vector-icons';
+import { Ionicons, createIconSet } from '@expo/vector-icons';
 import fontAwesome from '../../assets/fonts/fa-solid-900.ttf';
 
-const CustomIcon = createIconSet({pencil: '\uf303',
-                                  plus: '\uf067'},
-                                 'FontAwesome');
+const glyphMap = { pencil: '\uf303',
+                   plus: '\uf067',
+                   check: '\uf00c'}
+const CustomIcon = createIconSet(glyphMap, 'FontAwesome');
 
 class CircleButton extends React.Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class CircleButton extends React.Component {
           //   { this.props.children }
           // </Text>
           <CustomIcon name={this.name} style={[styles.CircleButtonTitle, {color: this.textColor}]}/>
+          // <Ionicons name="md-checkmark-circle" size={32} color="green" />
           : 
           null
         }
@@ -65,7 +67,7 @@ const styles = StyleSheet.create({
     zIndex: 999,
   },
   CircleButtonTitle: {
-    fontFamily: 'FontAwesome',
+    // fontFamily: 'FontAwesome',
     fontSize: 24,
     lineHeight: 32,
   },
