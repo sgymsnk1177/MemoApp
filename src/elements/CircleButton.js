@@ -6,7 +6,8 @@ import fontAwesome from '../../assets/fonts/fa-solid-900.ttf';
 
 const glyphMap = { pencil: '\uf303',
                    plus: '\uf067',
-                   check: '\uf00c'}
+                   check: '\uf00c',
+                  }
 const CustomIcon = createIconSet(glyphMap, 'FontAwesome');
 
 class CircleButton extends React.Component {
@@ -17,7 +18,6 @@ class CircleButton extends React.Component {
     this.bgColor = (color === 'white') ? '#fff' : '#E31676';
     this.textColor = (color === 'white') ? '#E31676' : '#fff';
     this.name = name;
-
     this.state ={
       fontLoaded: false,
     }
@@ -52,7 +52,7 @@ class CircleButton extends React.Component {
 const styles = StyleSheet.create({
   circleButton: {
     position: 'absolute',
-    bottom: 30,
+    bottom: 35,
     right: 25,
     width: 48,
     height: 48,

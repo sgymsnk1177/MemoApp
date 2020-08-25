@@ -9,6 +9,11 @@ import Appbar from './src/components/Appbar';
 import GraphDemo from './src/components/GraphDemo';
 import MemoListScreen from './src/screens/MemoListScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
+import MemoEditScreen from './src/screens/MemoEditScreen';
+import LoginScreen from './src/screens/LoginScreen';
+import SignupScreen from './src/screens/SignupScreen';
+
+
 import TestScreen from './src/screens/TestScreen';
 
 
@@ -79,7 +84,7 @@ function App(props) {
     return (
       <View style={styles.container}>
         <Appbar>MemoApp(デモ用)</Appbar>
-        <MemoDetailScreen/>
+        <SignupScreen/>
       </View>
       // <TestScreen/>
       
