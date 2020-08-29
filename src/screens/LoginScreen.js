@@ -17,18 +17,6 @@ class LoginScreen extends Component{
   }
 
   onLogin = () =>{
-
-    const firebaseConfig = {
-      apiKey: "AIzaSyC1Q1qc_TgfpzVEZAmPfi1ssUOhnSBhVpE",
-      authDomain: "memoapp-f9e0a.firebaseapp.com",
-      databaseURL: "https://memoapp-f9e0a.firebaseio.com",
-      projectId: "memoapp-f9e0a",
-      storageBucket: "memoapp-f9e0a.appspot.com",
-      messagingSenderId: "740128392031",
-      appId: "1:740128392031:web:980ce3a73e1c3c8e67acea",
-      measurementId: "G-XNRFCPFD6B"
-    };
-    
     if(this.state.loginId === 'aaa'
        && this.state.passWord === 'bbb'){
       this.props.navigation.navigate('Home');

@@ -4,6 +4,7 @@ import React, { useState, useEffect, createContext } from 'react';
 import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { createNavigationContainer, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
+import firebase from 'firebase';
 
 import Appbar from './src/components/Appbar';
 import GraphDemo from './src/components/GraphDemo';
@@ -12,11 +13,10 @@ import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
-import TestScreen from './src/screens/TestScreen';
 
+import ENV from './env.json';
 
 function App(props) {
-
   const [isLoadingComplete, setLoadingComplete] = useState(false)
   const [isGraphView, setGraphView] = useState(false)
 
@@ -90,6 +90,18 @@ function App(props) {
     );
   }
 }
+
+const firebaseConfig = {
+  apiKey: ENV.FIREBASE_API_KEY,
+  authDomain: ENV.FIREBASE_AUTH_DOMAIN,
+  databaseURL: ENV.FIREBASE_DB_URL,
+  projectId: ENV.FIREBASE_PRJ_ID,
+  storageBucket: ENV.FIREBASE_STORAGE,
+  messagingSenderId: ENV.FIREBASE_SENDER_ID,
+  appId: ENV.FIREBASE_APP_ID,
+  measurementId: ENV.FIREBASE_MEASUREMENT_ID
+};
+firebase.initializeApp(firebaseConfig);
 
 const navigator = createStackNavigator({
   Login:{screen:LoginScreen},
