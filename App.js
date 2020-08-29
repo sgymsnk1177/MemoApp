@@ -1,9 +1,9 @@
-import { StatusBar } from 'expo-status-bar';
-import { Asset } from 'expo-asset';
 import { AppLoading } from 'expo';
 import * as SQLite from 'expo-sqlite';
-import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Button, Alert, ScrollView, ListView, ActivityIndicatorComponent, SafeAreaView } from 'react-native';
+import React, { useState, useEffect, createContext } from 'react';
+import { StyleSheet, Text, View, Button, Alert } from 'react-native';
+import { createNavigationContainer, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation-stack';
 
 import Appbar from './src/components/Appbar';
 import GraphDemo from './src/components/GraphDemo';
@@ -12,8 +12,6 @@ import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
-
-
 import TestScreen from './src/screens/TestScreen';
 
 
@@ -30,7 +28,7 @@ function App(props) {
   //      setNowDate(new Date())
   //    }, 1000); 
   //   }
-  // );
+  // ,[]);
   
   /**
    * ローカルデータベース（sqlite）を作成
@@ -84,7 +82,7 @@ function App(props) {
     return (
       <View style={styles.container}>
         <Appbar>MemoApp(デモ用)</Appbar>
-        <SignupScreen/>
+        <MemoListScreen/>
       </View>
       // <TestScreen/>
       
@@ -92,6 +90,27 @@ function App(props) {
     );
   }
 }
+
+const navigator = createStackNavigator({
+  Login:{screen:LoginScreen},
+  Signup:{screen: SignupScreen},
+  Home: {screen: MemoListScreen},
+  Detail: {screen: MemoDetailScreen},
+  Edit: {screen: MemoEditScreen},
+},{
+  initialRouteName: 'Login',
+  defaultNavigationOptions: {
+    headerStyle: { 
+      backgroundColor : '#265366',                   
+    },
+    headerTitleStyle: {
+      color: '#fff',
+    },
+    headerTintColor: '#fff',
+    headerBackTitle: null,
+    headerTitle: 'DemoApp',
+  }
+});
 
 const styles = StyleSheet.create({
   container: {
@@ -103,4 +122,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default App;
+export default createAppContainer(navigator);

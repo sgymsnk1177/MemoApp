@@ -1,23 +1,62 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableHighlight } from 'react-native';
-
 import CircleButton from '../elements/CircleButton';
 
 class LoginScreen extends Component{
 
-  _onPress = () =>{
-    console.log('click!!');
+  constructor(props){
+    super(props)
+    this.state = { 
+      loginId : null,
+      passWord: null,
+    }
+  }
+
+  onHandleChangeText = (val) => {
+    this.setState({loginId : val})
+  }
+
+  onLogin = () =>{
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC1Q1qc_TgfpzVEZAmPfi1ssUOhnSBhVpE",
+      authDomain: "memoapp-f9e0a.firebaseapp.com",
+      databaseURL: "https://memoapp-f9e0a.firebaseio.com",
+      projectId: "memoapp-f9e0a",
+      storageBucket: "memoapp-f9e0a.appspot.com",
+      messagingSenderId: "740128392031",
+      appId: "1:740128392031:web:980ce3a73e1c3c8e67acea",
+      measurementId: "G-XNRFCPFD6B"
+    };
+    
+    if(this.state.loginId === 'aaa'
+       && this.state.passWord === 'bbb'){
+      this.props.navigation.navigate('Home');
+    }
   }
 
   render(){
     return(
       <View style={styles.container}>
         <Text style={styles.title}>ID</Text>
-        <TextInput style={styles.input} placeholder={"Email Address"}/>
+        <TextInput style={styles.input} placeholder={"Email Address"}
+                   //onChangeText={(id) => this.setState({loginId: id})}
+                   onChangeText={this.onHandleChangeText.bind(this)}
+                   autoCapitalize={'none'}
+                   autoCorrect={false}
+                   value={this.state.loginId}
+        />
         <Text style={styles.title}>パスワード</Text>
-        <TextInput style={styles.input} placeholder={"Password"}/>
+        <TextInput style={styles.input} placeholder={"Password"}
+                   onChangeText={(pass) => this.setState({passWord: pass})}
+                   autoCapitalize={'none'}
+                   autoCorrect={false}
+                   secureTextEntry
+                   value={this.state.pass}
+        />
         <TouchableHighlight style={styles.botton}
-                            onPress={this._onPress}
+                            onPress={this.onLogin}
+                            underlayColor={'#ddd'}
         >
           <Text style={styles.buttonTitle}>ログイン</Text>
         </TouchableHighlight>
@@ -31,8 +70,8 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     padding: 24,
+    paddingTop: 100,
     backgroundColor: '#fff',
-    marginTop: 100,
   },
   input:{
     backgroundColor: '#eee',
@@ -50,7 +89,8 @@ const styles = StyleSheet.create({
   },
   botton: {
     backgroundColor: '#E31676',
-    height: 48,
+    marginTop: 30,
+    height: 55,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

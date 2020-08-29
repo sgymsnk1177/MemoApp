@@ -1,8 +1,20 @@
 import React from 'react';
-import { StyleSheet, View, Text} from 'react-native';
+import { StyleSheet, View, Text, Button} from 'react-native';
+import Appbar from '../components/Appbar';
 import CircleButton from '../elements/CircleButton';
 
 class MemoDetailScreen extends React.Component {
+
+  constructor(props){
+    super(props)
+    // 引数オブジェクト
+    this.Req = this.props.navigation.state.params
+  }
+
+  // onPress = () =>{
+  //   this.props.navigation.navigate('Edit',{ 'ID': this.Req.ID })
+  // }
+
   render() {
     return ( 
       <View style={styles.container}>
@@ -16,10 +28,13 @@ class MemoDetailScreen extends React.Component {
         </View>
         <View style={styles.memoContent}>
           <Text>
-            講座のアイデアです
+            {this.Req.ID}
           </Text>
         </View>
-        <CircleButton name="pencil" color="white" style={styles.editButton} />
+        <CircleButton name="pencil" 
+                      color="white" 
+                      style={styles.editButton}
+                      onPress={() => this.props.navigation.navigate('Edit',{ID: this.Req.ID})} />
       </View>
     );
   }

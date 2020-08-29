@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, TouchableHighlight } from 'react-native';
-
 import CircleButton from '../elements/CircleButton';
 
 class SignupScreen extends Component{
