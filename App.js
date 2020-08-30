@@ -91,6 +91,7 @@ function App(props) {
   }
 }
 
+
 const firebaseConfig = {
   apiKey: ENV.FIREBASE_API_KEY,
   authDomain: ENV.FIREBASE_AUTH_DOMAIN,
@@ -102,6 +103,7 @@ const firebaseConfig = {
   measurementId: ENV.FIREBASE_MEASUREMENT_ID
 };
 firebase.initializeApp(firebaseConfig);
+require("firebase/firestore");
 
 const navigator = createStackNavigator({
   Login:{screen:LoginScreen},
