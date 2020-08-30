@@ -27,7 +27,6 @@ class MemoEditScreen extends Component{
                      multiline={true}
                      placeholder={"inputArea"}
                      value={String(this.state.inputVal)}
-                     
                      onChangeText={text => this.setState({inputVal: text})}
           />
         <CircleButton name="check" onPress={() => this.props.navigation.goBack()}/>

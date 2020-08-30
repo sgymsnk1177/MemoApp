@@ -49,11 +49,8 @@ class CircleButton extends React.Component {
                             underlayColor={'#fff'}>
           {
             this.state.fontLoaded ?
-            (
-              
-                
-                <CustomIcon name={this.name} style={[styles.CircleButtonTitle, {color: this.textColor}]}/>
-              
+            (               
+                <CustomIcon name={this.name} style={[styles.CircleButtonTitle, {color: this.textColor}]}/> 
             )
             : null
           }

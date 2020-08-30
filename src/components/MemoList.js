@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text, Alert, RefreshControl } from 'react-native';
-import { TouchableHighlight, ScrollView } from 'react-native-gesture-handler';
+import { StyleSheet, View, Text, Alert, RefreshControl, Image } from 'react-native';
+import { TouchableHighlight, ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 
 class MemoList extends React.Component {
 
@@ -16,7 +16,7 @@ class MemoList extends React.Component {
     this.props.onNavigate(i);
   }
 
-  onRefresh = () => {
+  onRefreshList = () => {
     this.setState({
       refreshing: true,
       listCount: Math.floor(Math.random() * 100),
@@ -37,8 +37,16 @@ class MemoList extends React.Component {
         <TouchableHighlight key={i} onPress={this.onNavigate.bind(this,i)}
         >
           <View style={styles.memoListItem}>
-            <Text style={styles.memoTitle}>List{i}</Text>
-            <Text style={styles.memoDate}>{String(new Date())}</Text>
+            <View style={{marginRight: 15}}>
+              <Image style={{width:50,height:50}} 
+                     source={{url:'../assets/fonts/icon.png'}}
+                     backgroundColor={'#ddd'}
+              />
+            </View>
+            <View>
+              <Text style={styles.memoTitle}>List{i}</Text>
+              <Text style={styles.memoDate}>{String(new Date())}</Text>
+            </View>
           </View>
         </TouchableHighlight>
       )
@@ -48,10 +56,13 @@ class MemoList extends React.Component {
                   refreshControl={
                     <RefreshControl
                       refreshing={this.state.refreshing}
-                      onRefresh={() => this.onRefresh()}
+                      onRefresh={() => this.onRefreshList()}
+                      color='#000080'
+                      progressBackgroundColor='#000080'
                     />
                   }      
       >
+        
         {Views}
       </ScrollView>
     );
@@ -65,6 +76,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   memoListItem: {
+    flexDirection: 'row',
     padding: 16,
     borderBottomWidth: 1.5,
     borderBottomColor: '#ddd',

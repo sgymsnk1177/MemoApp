@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Alert, TouchableHighlight } from 'react-native';
+import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 
 class LoginScreen extends Component{
@@ -16,11 +17,20 @@ class LoginScreen extends Component{
     this.setState({loginId : val})
   }
 
-  onLogin = () =>{
-    if(this.state.loginId === 'aaa'
-       && this.state.passWord === 'bbb'){
+  handleAuthMethod = () =>{
+    firebase.auth().signInWithEmailAndPassword(this.state.loginId, this.state.passWord)
+    .then(data => {
+      console.log('Success Auth',data.user);
       this.props.navigation.navigate('Home');
-    }
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      Alert.alert('Code:' + errorCode + ' Msg:' + errorMessage);
+    });
+    
   }
 
   render(){
@@ -43,7 +53,7 @@ class LoginScreen extends Component{
                    value={this.state.pass}
         />
         <TouchableHighlight style={styles.botton}
-                            onPress={this.onLogin}
+                            onPress={this.handleAuthMethod}
                             underlayColor={'#ddd'}
         >
           <Text style={styles.buttonTitle}>ログイン</Text>

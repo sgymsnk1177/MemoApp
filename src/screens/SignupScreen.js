@@ -1,21 +1,58 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, Button, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, Text, TextInput, Button, TouchableHighlight, ShadowPropTypesIOS, Alert } from 'react-native';
+import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 
 class SignupScreen extends Component{
 
-  _onPress = () =>{
-    console.log('click!!');
+  constructor(props){
+    super(props)
+    this.state = {
+      email: '',
+      password: '',
+    }
+  }
+
+  handleAuthMethod = () =>{
+    firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+    .then(data => {
+      console.log('Success Auth',data.user);
+      this.props.navigation.navigate('Home');
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
+      Alert.alert('Code:' + errorCode + ' Msg:' + errorMessage);
+    });
+    
   }
 
   render(){
     return(
       <View style={styles.container}>
         <Text style={styles.title}>メンバー登録</Text>
-        <TextInput style={styles.input} placeholder={"Email Address"}/>
-        <TextInput style={styles.input} placeholder={"Password"}/>
+        <Text>Email</Text>
+        <TextInput style={styles.input} 
+                   placeholder={"Email Address"}
+                   autoCapitalize={'none'}
+                   autoCorrect={false}
+                   onChangeText={(text) => this.setState({email: text})}
+                   value={this.state.email}
+        />
+        <Text>Password</Text>
+        <TextInput style={styles.input} 
+                   placeholder={"Password"}
+                   autoCapitalize={'none'}
+                   autoCorrect={false}
+                   secureTextEntry
+                   onChangeText={(text) => this.setState({password: text})}
+                   value={this.state.password}
+        />
+
         <TouchableHighlight style={styles.botton}
-                            onPress={this._onPress}
+                            onPress={this.handleAuthMethod}
                             underlayColor={'#C70F66'}
         >
           <Text style={styles.buttonTitle}>送信する</Text>
@@ -31,7 +68,7 @@ const styles = StyleSheet.create({
     width: '100%',
     padding: 24,
     backgroundColor: '#fff',
-    marginTop: 100,
+    marginTop: 0,
   },
   input:{
     backgroundColor: '#eee',
@@ -56,6 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '70%',
     alignSelf: 'center',
+    marginTop: 30,
   },
   buttonTitle:{
     color:'#fff',
