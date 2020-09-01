@@ -5,6 +5,7 @@ import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { createNavigationContainer, createAppContainer } from 'react-navigation';
 import { createStackNavigator } from 'react-navigation-stack';
 import firebase from 'firebase';
+import moment from 'moment';
 
 import Appbar from './src/components/Appbar';
 import GraphDemo from './src/components/GraphDemo';
@@ -102,8 +103,11 @@ const firebaseConfig = {
   appId: ENV.FIREBASE_APP_ID,
   measurementId: ENV.FIREBASE_MEASUREMENT_ID
 };
-firebase.initializeApp(firebaseConfig);
+
 require("firebase/firestore");
+firebase.initializeApp(firebaseConfig);
+
+require('moment');
 
 const navigator = createStackNavigator({
   Login:{screen:LoginScreen},

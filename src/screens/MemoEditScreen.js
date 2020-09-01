@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text, TextInput, Button, Alert } from 'react-native';
 import Appbar from '../components/Appbar';
 import CircleButton from '../elements/CircleButton';
+import firebase from 'firebase';
+import moment from 'moment';
 
 class MemoEditScreen extends Component{
 
@@ -19,6 +21,22 @@ class MemoEditScreen extends Component{
     }
   }
 
+  handleExecuteMemo = () => {
+    const db = firebase.firestore();
+    db.collection('memos').add({
+      body: this.state.inputVal,
+      createOn: moment().format('YYYY/MM/DD HH:mm:ss'),
+    })
+    .then(docRef => {
+      Alert.alert('登録しました');
+      this.navigation.navigate.goBack();
+    })
+    .catch(err => {
+      Alert.alert(err);
+    });
+  }
+
+
   render(){
     return(
       <View style={styles.container}>
@@ -29,7 +47,7 @@ class MemoEditScreen extends Component{
                      value={String(this.state.inputVal)}
                      onChangeText={text => this.setState({inputVal: text})}
           />
-        <CircleButton name="check" onPress={() => this.props.navigation.goBack()}/>
+        <CircleButton name="check" onPress={this.handleExecuteMemo.bind(this)}/>
       </View>
     )
   }

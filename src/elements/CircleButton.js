@@ -46,7 +46,7 @@ class CircleButton extends React.Component {
       <View style={[styles.circleButton, this.style, {backgroundColor: this.bgColor}]}>
         <TouchableHighlight style={[styles.container,{backgroundColor: this.bgColor}]}
                             onPress={this.props.onPress}
-                            underlayColor={'#fff'}>
+                            underlayColor={this.bgColor}>
           {
             this.state.fontLoaded ?
             (               

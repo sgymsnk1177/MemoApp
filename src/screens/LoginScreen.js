@@ -20,7 +20,8 @@ class LoginScreen extends Component{
   handleAuthMethod = () =>{
     firebase.auth().signInWithEmailAndPassword(this.state.loginId, this.state.passWord)
     .then(data => {
-      console.log('Success Auth',data.user);
+      // console.log('Success Auth',data.user);
+      Alert.alert('ログイン成功');
       this.props.navigation.navigate('Home');
     })
     .catch(function(error) {
@@ -29,8 +30,8 @@ class LoginScreen extends Component{
       var errorMessage = error.message;
       // ...
       Alert.alert('Code:' + errorCode + ' Msg:' + errorMessage);
+      return;
     });
-    
   }
 
   render(){

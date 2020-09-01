@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import Appbar from '../components/Appbar';
 import CircleButton from '../elements/CircleButton';
 import MemoList from '../components/MemoList';
+import moment from 'moment';
 
 class MemoListScreen extends React.Component{
 
@@ -17,7 +18,7 @@ class MemoListScreen extends React.Component{
     let db = firebase.firestore();
     db.collection('memos').add({
       body: 'testBody',
-      createOn: '2020/8/30',
+      createOn: moment().format('YYYY/MM/DD HH:mm:ss'),
     })
     .then(docRef => {
       Alert.alert('メモ保存完了しました:' + docRef.id);
@@ -32,8 +33,8 @@ class MemoListScreen extends React.Component{
       <View style={styles.container}>
         <MemoList onNavigate={this.onPress}/>
         <CircleButton name="plus" 
-                      //onPress={() => this.props.navigation.navigate('Edit')}
-                      onPress={this.handlePress.bind(this)}
+                      onPress={() => this.props.navigation.navigate('Edit')}
+                      // onPress={this.handlePress.bind(this)}
         />
       </View>
     );
