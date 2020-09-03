@@ -8,7 +8,8 @@ class MemoList extends React.Component {
     super(props)
     this.state = {
       refreshing: false,
-      listCount:  Math.floor(Math.random() * 100)
+      listCount:  Math.floor(Math.random() * 100),
+      memoList: this.props.memoList || [],
     }
   }
 
@@ -34,7 +35,7 @@ class MemoList extends React.Component {
     let Views = [];
     for (let i = 0; i < this.state.listCount; i++){
       Views.push(
-        <TouchableHighlight key={i} onPress={this.onNavigate.bind(this,i)}
+        <TouchableHighlight key={i} onPress={() => this.props.onNavigate(i)} //this.onNavigate.bind(this,i)
         >
           <View style={styles.memoListItem}>
             <View style={{marginRight: 15}}>

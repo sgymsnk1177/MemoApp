@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, Text, TextInput, Alert, TouchableHighlight } from 'react-native';
+import { StyleSheet, View, ScrollView, Text, TextInput, Alert, TouchableHighlight } from 'react-native';
 import firebase from 'firebase';
 import CircleButton from '../elements/CircleButton';
 
@@ -36,7 +36,7 @@ class LoginScreen extends Component{
 
   render(){
     return(
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container} scrollEnabled={false}>
         <Text style={styles.title}>ID</Text>
         <TextInput style={styles.input} placeholder={"Email Address"}
                    //onChangeText={(id) => this.setState({loginId: id})}
@@ -59,7 +59,7 @@ class LoginScreen extends Component{
         >
           <Text style={styles.buttonTitle}>ログイン</Text>
         </TouchableHighlight>
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -67,19 +67,20 @@ class LoginScreen extends Component{
 const styles = StyleSheet.create({
   container:{
     flex: 1,
+    justifyContent: 'center',
     width: '100%',
+    paddingBottom: 100,
     padding: 24,
-    paddingTop: 100,
     backgroundColor: '#fff',
   },
   input:{
     backgroundColor: '#eee',
     height: 48,
-    marginBottom: 15,
+    marginBottom: 30,
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 5,
-    padding: 8
+    padding: 16
   },
   title: {
     fontSize: 11,

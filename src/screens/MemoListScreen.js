@@ -1,40 +1,53 @@
 import React from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import firebase from 'firebase';
-import Appbar from '../components/Appbar';
 import CircleButton from '../elements/CircleButton';
 import MemoList from '../components/MemoList';
-import moment from 'moment';
+import firebase from 'firebase';
+import _ from 'lodash';
 
 class MemoListScreen extends React.Component{
+
+  constructor(props){
+    super(props)
+    this.state ={ 
+      memoList: [],
+    }
+  }
 
   onPress = (i) => {
     // Alert.alert(String(i));
     this.props.navigation.navigate('Detail',{'ID':i})
-    // this.props.navigation.navigate('Edit');
   }
 
-  handlePress = () => {
-    let db = firebase.firestore();
-    db.collection('memos').add({
-      body: 'testBody',
-      createOn: moment().format('YYYY/MM/DD HH:mm:ss'),
-    })
-    .then(docRef => {
-      Alert.alert('メモ保存完了しました:' + docRef.id);
-    })
-    .catch(error => {
-      Alert.alert(error);
-    })
+  componentDidMount(){
+    const { currentUser } = firebase.auth();
+    // console.log(currentUser);
+    const db = firebase.firestore();
+    db.collection(`users/${currentUser.uid}/memos`)
+      .get()
+      .then( querySnapshot => {
+        console.log(querySnapshot);
+        const memoList = [];
+        querySnapshot.forEach(query => {
+          console.log(query);
+        })
+        // _.each(querySnapshot, (v,i) => {
+        //   console.log(v);
+        //   memoList.push(v.data());
+        // })
+        // // 画面描画
+        // this.setState({memoList: memoList})
+      })
+      .catch( err => Alert.alert(err));
   }
 
   render(){
+    const { params } = this.props.navigation.state;
     return(
       <View style={styles.container}>
-        <MemoList onNavigate={this.onPress}/>
+        <MemoList onNavigate={this.onPress} memoList={this.state.memoList}/>
         <CircleButton name="plus" 
-                      onPress={() => this.props.navigation.navigate('Edit')}
-                      // onPress={this.handlePress.bind(this)}
+                      onPress={() => this.props.navigation.navigate('Create')}
         />
       </View>
     );

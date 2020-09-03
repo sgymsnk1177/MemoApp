@@ -35,11 +35,7 @@ class CircleButton extends React.Component {
       fontLoaded: true,
     })
   }
-
-  // onNavigate = () => {
-  //   this.props.onNavigate()
-  // }
-
+  
   render() {
     return (
 

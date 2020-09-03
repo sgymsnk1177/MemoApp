@@ -12,10 +12,14 @@ import GraphDemo from './src/components/GraphDemo';
 import MemoListScreen from './src/screens/MemoListScreen';
 import MemoDetailScreen from './src/screens/MemoDetailScreen';
 import MemoEditScreen from './src/screens/MemoEditScreen';
+import MemoCreateScreen from './src/screens/MemoCreateScreen';
 import LoginScreen from './src/screens/LoginScreen';
 import SignupScreen from './src/screens/SignupScreen';
 
 import ENV from './env.json';
+
+require('moment');
+require("firebase/firestore");
 
 function App(props) {
   const [isLoadingComplete, setLoadingComplete] = useState(false)
@@ -92,7 +96,6 @@ function App(props) {
   }
 }
 
-
 const firebaseConfig = {
   apiKey: ENV.FIREBASE_API_KEY,
   authDomain: ENV.FIREBASE_AUTH_DOMAIN,
@@ -104,10 +107,7 @@ const firebaseConfig = {
   measurementId: ENV.FIREBASE_MEASUREMENT_ID
 };
 
-require("firebase/firestore");
 firebase.initializeApp(firebaseConfig);
-
-require('moment');
 
 const navigator = createStackNavigator({
   Login:{screen:LoginScreen},
@@ -115,6 +115,12 @@ const navigator = createStackNavigator({
   Home: {screen: MemoListScreen},
   Detail: {screen: MemoDetailScreen},
   Edit: {screen: MemoEditScreen},
+  Create: {
+    screen: MemoCreateScreen,
+    navigationOptions: ({navigation}) => ({
+      title: `新規作成`
+    }),
+  },
 },{
   initialRouteName: 'Login',
   defaultNavigationOptions: {
@@ -126,7 +132,7 @@ const navigator = createStackNavigator({
     },
     headerTintColor: '#fff',
     headerBackTitle: null,
-    headerTitle: 'DemoApp',
+    // headerTitle: 'DemoApp',
   }
 });
 
